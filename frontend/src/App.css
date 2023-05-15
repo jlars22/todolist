@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Sigmar&display=swap');
+
+.App {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #588157;
+    font-family: "Sigmar";
+}
+
+.heading {
+    text-transform: uppercase;
+    font-size: 40px;
+    margin: 30px;
+    color: white;
+    z-index: 1;
+    text-align: center;
+}
+
+@media (max-width: 800px) {
+    .heading {
+        margin: 15px;
+        font-size: 35px;
+    }
+}
