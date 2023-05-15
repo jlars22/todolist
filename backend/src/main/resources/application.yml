@@ -13,6 +13,9 @@ liquibase:
   datasources:
     default:
       change-log: classpath:db/changelog/liquibase-changelog.xml
+jpa.default:
+  packages-to-scan:
+    - 'example.micronaut'
 netty:
   default:
     allocator:
