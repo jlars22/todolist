@@ -3,16 +3,13 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-  <changeSet id="createTable" author="your_name">
+  <changeSet id="createTable" author="jonas">
     <createTable tableName="todos">
       <column name="id" type="bigint" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>
-      <column name="title" type="varchar(255)">
-        <constraints nullable="false"/>
-      </column>
       <column name="description" type="varchar(500)">
-        <constraints nullable="true"/>
+        <constraints nullable="false"/>
       </column>
       <column name="completed" type="boolean" defaultValueBoolean="false">
         <constraints nullable="false"/>
