@@ -18,7 +18,7 @@ class TodoController(private val todoService: TodoService) {
     }
 
     @Get
-    fun listTodos(): Iterable<Todo> {
+    fun listTodos(): List<Todo> {
         return todoService.listTodos()
     }
 

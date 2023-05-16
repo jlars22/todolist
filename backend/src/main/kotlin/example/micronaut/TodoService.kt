@@ -8,8 +8,8 @@ class TodoService(private val todoRepository: TodoRepo) {
         return todoRepository.save(todo)
     }
 
-    fun listTodos(): Iterable<Todo> {
-        return todoRepository.findAll()
+    fun listTodos(): List<Todo> {
+        return todoRepository.findAll() as List<Todo>
     }
 
     fun getTodoById(id: Long): Todo {
