@@ -9,6 +9,7 @@ class TodoService(private val todoRepository: TodoRepo) {
     }
 
     fun listTodos(): List<Todo> {
+        @Suppress("UNCHECKED_CAST")
         return todoRepository.findAll() as List<Todo>
     }
 
