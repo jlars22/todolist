@@ -1,11 +1,13 @@
 package example.micronaut
 
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Delete
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Patch
+import io.micronaut.http.exceptions.HttpStatusException
 
 @Controller("/todos")
 class TodoController(private val todoService: TodoService) {
@@ -14,12 +16,12 @@ class TodoController(private val todoService: TodoService) {
         return todoService.createTodo(todo)
     }
 
-    @Delete("/{id}/delete")
+    @Delete("/{id}")
     fun deleteTodoById(id: Long): Todo {
         try {
             return todoService.deleteTodoById(id)
         } catch (e: IllegalArgumentException) {
-            throw io.micronaut.http.exceptions.HttpStatusException(io.micronaut.http.HttpStatus.NOT_FOUND, e.message)
+            throw HttpStatusException(HttpStatus.NOT_FOUND, e.message)
         }
     }
 
@@ -30,16 +32,28 @@ class TodoController(private val todoService: TodoService) {
 
     @Get("/{id}")
     fun getTodoById(id: Long): Todo {
-        return todoService.getTodoById(id)
+        try {
+            return todoService.getTodoById(id)
+        } catch (e: IllegalArgumentException) {
+            throw HttpStatusException(HttpStatus.NOT_FOUND, e.message)
+        }
     }
 
     @Patch("/{id}/update")
     fun updateTodoById(id: Long, @Body todo: Todo): Todo {
-        return todoService.updateTodoById(id, todo)
+        try {
+            return todoService.updateTodoById(id, todo)
+        } catch (e: IllegalArgumentException) {
+            throw HttpStatusException(HttpStatus.NOT_FOUND, e.message)
+        }
     }
 
     @Patch("/{id}/toggle")
     fun toggleTodoCompletionById(id: Long): Todo {
-        return todoService.toggleTodoCompletionById(id)
+        try {
+            return todoService.toggleTodoCompletionById(id)
+        } catch (e: IllegalArgumentException) {
+            throw HttpStatusException(HttpStatus.NOT_FOUND, e.message)
+        }
     }
 }

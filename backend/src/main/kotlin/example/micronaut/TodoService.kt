@@ -14,28 +14,33 @@ class TodoService(private val todoRepository: TodoRepo) {
     }
 
     fun getTodoById(id: Long): Todo {
-        return todoRepository.findById(id).get()
+        return findTodoInDB(id)
     }
 
-    fun deleteTodoById(id: Long) : Todo {
+    fun deleteTodoById(id: Long): Todo {
+        val todo = findTodoInDB(id)
+        todoRepository.deleteById(id)
+        return todo
+    }
+
+    fun updateTodoById(id: Long, todoIn: Todo): Todo {
+        val todo = findTodoInDB(id)
+        todo.description = todoIn.description
+        return todoRepository.update(todo)
+    }
+
+    fun toggleTodoCompletionById(id: Long): Todo {
+        val todo = findTodoInDB(id)
+        todo.completed = !todo.completed
+        return todoRepository.update(todo)
+    }
+
+    private fun findTodoInDB(id: Long): Todo {
         val todo = todoRepository.findById(id)
         if (todo.isEmpty) {
             throw IllegalArgumentException("No todo found with id $id")
         }
-        todoRepository.deleteById(id)
         return todo.get()
-    }
-
-    fun updateTodoById(id: Long, todo: Todo): Todo {
-        val todoToUpdate = todoRepository.findById(id).get()
-        todoToUpdate.description = todo.description
-        return todoRepository.update(todoToUpdate)
-    }
-
-    fun toggleTodoCompletionById(id: Long): Todo {
-        val todoToUpdate = todoRepository.findById(id).get()
-        todoToUpdate.completed = !todoToUpdate.completed
-        return todoRepository.update(todoToUpdate)
     }
 
 
