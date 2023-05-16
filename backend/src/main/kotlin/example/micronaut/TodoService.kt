@@ -27,7 +27,6 @@ class TodoService(private val todoRepository: TodoRepo) {
         return todoRepository.update(todoToUpdate)
     }
 
-    // set todo.completed to the opposite of what it was
     fun toggleTodoById(id: Long): Todo {
         val todoToUpdate = todoRepository.findById(id).get()
         todoToUpdate.completed = !todoToUpdate.completed
